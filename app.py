@@ -19,14 +19,14 @@ def index():
 
     if request.method == "POST":
         ProductID = request.form["ProductID"]
-        name = request.form["name"]
+        Name = request.form["Name"]
         CreatedDate = request.form["CreatedDate"]
-        price = float(request.form["price"])
-        description = request.form["description"]
-        image_url = request.form["image_url"]
+        Price = float(request.form["Price"])
+        Description = request.form["Description"]
+        ImageURL = request.form["ImageURL"]
 
-        cursor.execute("INSERT INTO Products (ProductName, Price, Description, ImageURL) VALUES (?, ?, ?, ?)",
-                       (name, price, description, image_url))
+        cursor.execute("INSERT INTO Products (ProductID, Name, CreatedDate, Price, Description, ImageURL) VALUES (?, ?, ?, ?, ?, ?)",
+                       (ProductID, Name, CreatedDate, Price, Description, ImageURL))
         conn.commit()
 
     cursor.execute("SELECT * FROM Products")

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html>
 <body>
 <h2>Product Catalogue</h2>
@@ -15,6 +15,35 @@
 <ul>
     {% for product in products %}
         <li>{{ product[1] }} - ${{ product[2] }} <br> {{ product[3] }} <br> <img src="{{ product[4] }}" width="100"></li>
+    {% endfor %}
+</ul>
+</body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Product Catalogue</h2>
+
+<form method="POST">
+    Product ID: <input type="text" name="ProductID"><br> <!-- Add this since it's required in the table -->
+    Name: <input type="text" name="Name"><br>
+    Created Date: <input type="date" name="CreatedDate"><br> <!-- Date field -->
+    Price: <input type="text" name="Price"><br>
+    Description: <input type="text" name="Description"><br>
+    Image URL: <input type="text" name="ImageURL"><br> <!-- This stays the same -->
+    <input type="submit" value="Add Product">
+</form>
+
+<h3>Product List</h3>
+<ul>
+    {% for product in products %}
+        <li>
+            <strong>{{ product[1] }}</strong> - ${{ product[3] }} <br>
+            Created on: {{ product[2] }} <br>
+            {{ product[4] }} <br>
+            <img src="{{ product[5] }}" width="100">
+        </li>
     {% endfor %}
 </ul>
 </body>
