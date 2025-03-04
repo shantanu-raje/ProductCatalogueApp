@@ -3,13 +3,13 @@
 <body>
 <h2>Product Catalogue</h2>
 
-<form method="POST">
-    Product ID: <input type="text" name="ProductID"><br> <!-- Add this since it's required in the table -->
-    Name: <input type="text" name="Name"><br>
-    Created Date: <input type="date" name="CreatedDate"><br> <!-- Date field -->
-    Price: <input type="text" name="Price"><br>
-    Description: <input type="text" name="Description"><br>
-    Image URL: <input type="text" name="ImageURL"><br> <!-- This stays the same -->
+<form id="productForm" method="POST" enctype="multipart/form-data">
+    Product ID: <input type="text" name="ProductID" required><br>
+    Name: <input type="text" name="Name" required><br>
+    Created Date: <input type="date" name="CreatedDate" required><br>
+    Price: <input type="number" step="0.01" name="Price" required><br>
+    Description: <input type="text" name="Description" required><br>
+    Image: <input type="file" name="image" id="image" required><br>
     <input type="submit" value="Add Product">
 </form>
 
@@ -24,5 +24,31 @@
         </li>
     {% endfor %}
 </ul>
+
+<script>
+document.getElementById("productForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("image", document.getElementById("image").files[0]);
+
+    // Upload image to Azure Blob Storage
+    const response = await fetch("/upload", {
+        method: "POST",
+        body: formData
+    });
+
+    const imageUrl = await response.text();
+
+    // Add the image URL to the form and submit
+    const hiddenInput = document.createElement("input");
+    hiddenInput.type = "hidden";
+    hiddenInput.name = "ImageURL";
+    hiddenInput.value = imageUrl;
+    this.appendChild(hiddenInput);
+
+    this.submit();
+});
+</script>
 </body>
 </html>
