@@ -18,7 +18,9 @@ def index():
     cursor = conn.cursor()
 
     if request.method == "POST":
+        ProductID = request.form["ProductID"]
         name = request.form["name"]
+        CreatedDate = request.form["CreatedDate"]
         price = float(request.form["price"])
         description = request.form["description"]
         image_url = request.form["image_url"]
