@@ -54,5 +54,9 @@ def upload_image():
 
     return image_url
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=False)
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=8000, debug=False)
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))  # Default to 5000 locally, Azure sets PORT=8000
+    app.run(host='0.0.0.0', port=port)
